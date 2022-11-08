@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Search Results</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="icon" type="image/jpg" href ="https://extravision.com/img/logo/client-logos/quotes/coventry-university.jpg">
+</head>
+<body> 
+    <div>
+        <img type="image/jpg" src="https://www.coventry.ac.uk/contentassets/40cbe16be2074d579b68cbd96a971052/cov-uni-logo-square.jpg" alt="'image">
+      </div>
+      <div>
+        <form required="required" action="/search" method="POST">
+            <input required="required" type="text" title="Search" name="query" placeholder="Enter Your Search Query"/>
+            <button type="submit">Search For Publications</button> 
+        </form>
+      </div>
+    <div>
+        <h3>
+            {% if retrieved %}
+            <span>Your Search returned {{(length)}} results for {{query[:200]}}</span>                      
+        </h3>       
+            {% for doc in retrieved %}
+            <h3>   
+                <a href="{{data[doc]['publication link']}}"> 
+                    <span>{{data[doc]['publication title']}}</span>
+                </a>
+           </h3>  
+            <span>
+                Abstract:  {{data[doc]['abstract'][:400]+'.........'+data[doc]['abstract'][-200:]}}     
+            </span> <span class="date">Publication Date: {{data[doc]['publication date']}}</span>
+            <!-- </p> -->
+            
+            <p>
+             Authors:  {{data[doc]['authors']}}        
+            </p>
+            {% endfor %}
+            {% else %}
+        <h2 > 
+            <span>Your Search for {{query}} returned no results</span> 
+        </h2>
+            {% endif %}
+    </div>
+</body>
+</html>
