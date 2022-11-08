@@ -10,7 +10,7 @@ from processor import query_processor
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=mycrawler, trigger="interval", start_date=datetime(2022,12,12),days=60)
+scheduler.add_job(func=mycrawler, trigger="interval", start_date=datetime.now() ,days=60)
 scheduler.start()
 # Shut down the scheduler when exiting the app
 atexit.register(lambda: scheduler.shutdown(wait=False))
